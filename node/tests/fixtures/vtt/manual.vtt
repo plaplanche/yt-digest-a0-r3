@@ -1,0 +1,32 @@
+WEBVTT - Manual track
+Kind: captions
+Language: en
+
+NOTE This note is ignored
+and spans two lines.
+
+STYLE
+::cue(v[voice="Alice"]) {
+  color: yellow;
+}
+
+REGION
+id:bottom
+width:40%
+
+intro
+00:00:01.000 --> 00:00:03.100 align:center line:90%
+<v Alice>Welcome to the show.</v>
+
+00:00:05.100 --> 00:00:07.000
+<v.loud Bob>Today we talk about</v>
+<i>caching</i> and <b>queues</b>.
+
+NOTE The next cue starts 1.9 s after this one ends.
+
+00:00:08.900 --> 00:00:10.000 position:10%,line-left size:80%
+<u>First</u>, caching.
+
+outro
+01:02:03.500 --> 01:02:05.000
+That is all for today.
