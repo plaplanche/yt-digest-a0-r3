@@ -17,3 +17,6 @@ Choices the spec leaves open, one dated line each.
 - 2026-10-16: VTT blocks are separated by empty lines only (YouTube's single-space lines stay inside their cue); the timing line is the first or second line of a block, and a block without one is skipped.
 - 2026-10-16: Step 3 removes every `<…>` tag, then decodes entities with `html.unescape` (so `&lt;` survives as `<`), then removes `[…]` without nesting; whitespace is collapsed with `str.split`.
 - 2026-10-16: A kept cue is one that still has a line after step 4; the paragraph gap is rounded to milliseconds before the 2.0 s comparison, since VTT times have millisecond precision.
+- 2026-10-16: The SponsorBlock client is `yt_digest_node.sponsorblock.fetch_segments(base_url, video_id, request_id=None)`, built on `urllib` (no new dependency); it returns a `SponsorBlockResult` (`state` `ok`/`none`/`error`, `segments`) and never raises for HTTP or network failures.
+- 2026-10-16: A 200 whose body is not a JSON array of items with a numeric `segment: [start, end]` counts as `error` (logged with status 200); `sponsorblock.call` logs `segments` as the number of segments returned and `duration_ms` as an integer.
+- 2026-10-16: `sponsor_ratio(segments, duration)` returns 0 when the duration is not positive; the midpoint rule of 5.4 step 2 stays in `cleaning.to_paragraphs`.
