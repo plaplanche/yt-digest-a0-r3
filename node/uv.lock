@@ -438,6 +438,15 @@ wheels = [
 ]
 
 [[package]]
+name = "types-yt-dlp"
+version = "2026.8.19.20261008"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/01/21/1d20665bc21051978d7d0e7c885c7273df5e4d96202b7b10899aa9684d53/types_yt_dlp-2026.8.19.20261008.tar.gz", hash = "sha256:f63bd6aaf9f05ec03ca908b3b14cbcc2c30d7d03bbce742c28d5ea6789c1b00d", size = 42388, upload-time = "2026-10-08T08:06:36.106Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/36/e6/703a5893845fb5514270e462ce39124ebc4029eecd2fac87d5627636ca30/types_yt_dlp-2026.8.19.20261008-py3-none-any.whl", hash = "sha256:0b34b248d02cdf5e5010dbb56688b1ea38ff17894dbb99a01601cfb82502cdd8", size = 55294, upload-time = "2026-10-08T08:06:34.263Z" },
+]
+
+[[package]]
 name = "typing-extensions"
 version = "4.16.0"
 source = { registry = "https://pypi.org/simple" }
@@ -464,6 +473,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
+    { name = "yt-dlp" },
 ]
 
 [package.dev-dependencies]
@@ -472,10 +482,14 @@ dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "types-yt-dlp" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pydantic", specifier = ">=2.14.1" }]
+requires-dist = [
+    { name = "pydantic", specifier = ">=2.14.1" },
+    { name = "yt-dlp", specifier = ">=2026.8.19" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -483,4 +497,14 @@ dev = [
     { name = "mypy", specifier = ">=1.13" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "ruff", specifier = ">=0.8" },
+    { name = "types-yt-dlp", specifier = ">=2026.8.19.20261008" },
+]
+
+[[package]]
+name = "yt-dlp"
+version = "2026.8.19"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1e/e0/832fa4ca334b766a06933a196066edc3dba37cdb6f14cd98d59bcc69a4b4/yt_dlp-2026.8.19.tar.gz", hash = "sha256:9e213e48cea35c66b378e4447903f118f6392a5fa380a2b6d7070ec86f4e0af1", size = 3052025, upload-time = "2026-08-19T23:48:59.291Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/69/b2/8cd1613f56eed7ceb64fbd4df3f1c01246bfb098e6f398228bafda22b80b/yt_dlp-2026.8.19-py3-none-any.whl", hash = "sha256:1d57897e94c6665a0a6f9bc54b34e584284e32c034ffab3a7df25d8f7b24eedf", size = 3185533, upload-time = "2026-08-19T23:48:56.925Z" },
 ]
