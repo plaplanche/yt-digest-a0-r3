@@ -13,3 +13,7 @@ Choices the spec leaves open, one dated line each.
 - 2026-10-16: The worker validates at runtime with `@cfworker/json-schema` (no `eval`, Workers-compatible) against the schema files in `contracts/`, imported as JSON (`worker/src/validate.ts`).
 - 2026-10-16: The log schema keeps `attrs` a free-form object and `request_id`/`video_id` plain strings; the per-event attributes and services of 4.2 are documented in the schema, not enforced. The "null unless `ok`" rules of 4.1 are left to the pipeline, not encoded in the schema.
 - 2026-10-16: `emit` leaves out fields set to None, defaults `attrs` to `{}`, sets `ts` and `service` itself (passing them raises `ValueError`); the worker's `log` writes with `console.log`.
+- 2026-10-16: Cleaning lives in `yt_digest_node.cleaning`: `parse_vtt(text) -> list[Cue]` (frozen dataclass: `start`, `end` in seconds, raw `lines`) and `to_paragraphs(cues, segments) -> list[str]`; joining with `\n\n` is left to the caller.
+- 2026-10-16: VTT blocks are separated by empty lines only (YouTube's single-space lines stay inside their cue); the timing line is the first or second line of a block, and a block without one is skipped.
+- 2026-10-16: Step 3 removes every `<…>` tag, then decodes entities with `html.unescape` (so `&lt;` survives as `<`), then removes `[…]` without nesting; whitespace is collapsed with `str.split`.
+- 2026-10-16: A kept cue is one that still has a line after step 4; the paragraph gap is rounded to milliseconds before the 2.0 s comparison, since VTT times have millisecond precision.
