@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yt-digest/contracts/log-event.schema.json",
+  "title": "LogEvent",
+  "description": "One log line. Never holds transcript or subtitle text: only counts, ratios, durations and identifiers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ts", "level", "service", "event", "attrs"],
+  "properties": {
+    "ts": {
+      "description": "ISO 8601 UTC timestamp with milliseconds and Z.",
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z$"
+    },
+    "level": {
+      "title": "LogLevel",
+      "type": "string",
+      "enum": ["debug", "info", "warn", "error"]
+    },
+    "service": {
+      "title": "LogService",
+      "type": "string",
+      "enum": ["node", "worker"]
+    },
+    "event": {
+      "title": "LogEventName",
+      "description": "The catalogue of events. service.started (node, worker): attrs version. fetch.transcript (node): attrs outcome, source, words, pages, sponsor_ratio, sponsorblock, duration_ms. sponsorblock.call (node): attrs status, segments, duration_ms.",
+      "type": "string",
+      "enum": ["service.started", "fetch.transcript", "sponsorblock.call"]
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "video_id": {
+      "type": "string"
+    },
+    "attrs": {
+      "type": "object"
+    }
+  }
+}

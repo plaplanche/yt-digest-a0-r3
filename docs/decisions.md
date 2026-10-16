@@ -7,3 +7,9 @@ Choices the spec leaves open, one dated line each.
 - 2026-10-16: Vitest runs `worker/tests/**/*.test.ts`; pytest runs `node/tests/`.
 - 2026-10-16: The `lint` check runs mypy on `node/src` and `node/tests`, and shellcheck on every `*.sh` file under `scripts/`.
 - 2026-10-16: The `contracts` check prints "nothing to check" and passes while `scripts/contracts.sh` does not exist.
+- 2026-10-16: Contracts are generated with datamodel-code-generator (Pydantic v2, `StrEnum`s, node dev dependency) and json-schema-to-typescript (worker dev dependency); the Python output is passed through ruff with `node/pyproject.toml`, which ignores E501 in the generated directory.
+- 2026-10-16: `scripts/contracts.sh` always generates into a temporary directory, then replaces `worker/src/contracts/` and `node/src/yt_digest_node/contracts/` whole (or, with `--check`, compares them, naming differing, missing and extra files); `CONTRACTS_ROOT` points it at another tree holding `contracts/` and the generated files, for its test.
+- 2026-10-16: The `contracts` check installs the node and worker dependencies, runs `./scripts/contracts.sh --check`, then `scripts/tests/contracts-check.sh`, which shows on a copy of the tree that hand edits and schema changes are caught.
+- 2026-10-16: The worker validates at runtime with `@cfworker/json-schema` (no `eval`, Workers-compatible) against the schema files in `contracts/`, imported as JSON (`worker/src/validate.ts`).
+- 2026-10-16: The log schema keeps `attrs` a free-form object and `request_id`/`video_id` plain strings; the per-event attributes and services of 4.2 are documented in the schema, not enforced. The "null unless `ok`" rules of 4.1 are left to the pipeline, not encoded in the schema.
+- 2026-10-16: `emit` leaves out fields set to None, defaults `attrs` to `{}`, sets `ts` and `service` itself (passing them raises `ValueError`); the worker's `log` writes with `console.log`.

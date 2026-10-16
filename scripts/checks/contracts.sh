@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Contracts check: the committed generated files match the schemas in contracts/.
+# Contracts check: the committed generated files match the schemas in contracts/, and the check
+# itself catches stale files.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 
-if [[ ! -x scripts/contracts.sh ]]; then
-  echo "scripts/contracts.sh does not exist yet: nothing to check"
-  exit 0
-fi
+uv sync --locked --directory node
+(cd worker && npm ci --no-audit --no-fund)
 ./scripts/contracts.sh --check
+./scripts/tests/contracts-check.sh
